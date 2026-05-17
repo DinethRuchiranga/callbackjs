@@ -1,46 +1,43 @@
 export default async function handler(req, res) {
   try {
-    console.log("ToyyibPay callback received:", req.body);
+    const data = {
+      method: req.method,
+      body: req.body || {},
+      query: req.query || {},
+      time: new Date().toISOString(),
+    };
 
-    const data = req.body;
+    const FIREBASE_SECRET = "ymyViyzvSwmuW97BMmYuuDmAtN1oPq6igEoutu2S";
+    const BASE_URL =
+      "https://vending-prefume-default-rtdb.asia-southeast1.firebasedatabase.app";
 
-    // ToyyibPay usually sends payment status data here.
-    // status_id = 1 normally means successful payment.
-    const statusId = data.status_id || data.status || data.payment_status;
-
-    if (statusId && String(statusId) !== "1") {
-      return res.status(200).json({
-        success: false,
-        message: "Payment not successful",
-        receivedStatus: statusId
-      });
-    }
-
-    const firebaseUrl =
-      "https://vending-prefume-default-rtdb.asia-southeast1.firebasedatabase.app/machine001/paid.json?auth=ymyViyzvSwmuW97BMmYuuDmAtN1oPq6igEoutu2S";
-
-    const firebaseResponse = await fetch(firebaseUrl, {
+    // Save debug data
+    await fetch(`${BASE_URL}/debug/lastCallback.json?auth=${FIREBASE_SECRET}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(true)
+      body: JSON.stringify(data),
     });
 
-    const firebaseResult = await firebaseResponse.json();
+    // Unlock machine
+    await fetch(`${BASE_URL}/machine001/paid.json?auth=${FIREBASE_SECRET}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(true),
+    });
 
     return res.status(200).json({
       success: true,
-      message: "Machine unlocked",
-      firebase: firebaseResult
+      message: "Callback received. Firebase updated.",
+      received: data,
     });
-
   } catch (error) {
-    console.error("Callback error:", error);
-
     return res.status(500).json({
       success: false,
-      error: error.message
+      error: error.message,
     });
   }
 }
