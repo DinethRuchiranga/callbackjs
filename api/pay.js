@@ -19,7 +19,7 @@ export default async function handler(req, res) {
     formData.append("billName", "Perfume Spray");
     formData.append("billDescription", "One perfume spray from vending machine");
     formData.append("billPriceSetting", "1");
-    formData.append("billPayorInfo", "0");
+    formData.append("billPayorInfo", "1");
     formData.append("billAmount", "100");
 
     formData.append("billReturnUrl", callbackUrl);
