@@ -7,7 +7,7 @@ const perfumes = {
     brand: "GIORGIO ARMANI",
     description:
       "A warm, modern and addictive fragrance with notes of vanilla, amber and chestnut. Confident, stylish and perfect for every occasion.",
-    bottleClass: "armani-bottle"
+    image: "images/armani.png.webp"
   },
 
   dg: {
@@ -16,7 +16,7 @@ const perfumes = {
     brand: "DOLCE & GABBANA",
     description:
       "A rich and elegant fragrance with warm amber, tobacco and spice notes. Smooth, masculine and luxurious.",
-    bottleClass: "dg-bottle"
+    image: "images/dg-the-one.png.webp"
   },
 
   eros: {
@@ -25,7 +25,7 @@ const perfumes = {
     brand: "VERSACE",
     description:
       "A bold fresh fragrance with mint, citrus and woody notes. Strong, energetic and memorable.",
-    bottleClass: "eros-bottle"
+    image: "images/eros.png.webp"
   }
 };
 
@@ -52,8 +52,7 @@ function openDetails(perfumeKey) {
     selectedPerfume.description;
 
   const detailBottle = document.getElementById("detailBottle");
-  detailBottle.className = "detail-bottle";
-  detailBottle.classList.add(selectedPerfume.bottleClass);
+  detailBottle.src = selectedPerfume.image;
 
   document.getElementById("qrPerfumeName").innerText = selectedPerfume.name;
   document.getElementById("qrPerfumeBrand").innerText = selectedPerfume.brand;
@@ -64,8 +63,7 @@ function openDetails(perfumeKey) {
     selectedPerfume.brand;
 
   const successBottle = document.getElementById("successBottle");
-  successBottle.className = "success-bottle";
-  successBottle.classList.add(selectedPerfume.bottleClass);
+  successBottle.src = selectedPerfume.image;
 
   showScreen("detailScreen");
 }
