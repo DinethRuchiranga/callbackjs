@@ -1,4 +1,5 @@
 let selectedPerfume = null;
+let isTransitioning = false;
 
 const perfumes = {
   armani: {
@@ -34,14 +35,37 @@ function showScreen(screenId) {
 
   screens.forEach((screen) => {
     screen.classList.remove("active");
+    screen.classList.remove("screen-ready");
   });
 
-  document.getElementById(screenId).classList.add("active");
+  const nextScreen = document.getElementById(screenId);
+  nextScreen.classList.add("active");
+
+  // Small delay allows CSS entrance animations to trigger cleanly
+  setTimeout(() => {
+    nextScreen.classList.add("screen-ready");
+  }, 40);
 }
 
-document.getElementById("idleScreen").addEventListener("click", () => {
-  showScreen("selectionScreen");
-});
+// Special premium transition from home screen to selection screen
+function startExperience() {
+  if (isTransitioning) return;
+
+  isTransitioning = true;
+
+  const idleScreen = document.getElementById("idleScreen");
+  idleScreen.classList.add("idle-starting");
+
+  // This delay allows the Desaint's logo to move upward smoothly first
+  setTimeout(() => {
+    showScreen("selectionScreen");
+    idleScreen.classList.remove("idle-starting");
+    isTransitioning = false;
+  }, 950);
+}
+
+document.getElementById("idleScreen").addEventListener("click", startExperience);
+document.getElementById("idleScreen").addEventListener("touchstart", startExperience);
 
 function openDetails(perfumeKey) {
   selectedPerfume = perfumes[perfumeKey];
