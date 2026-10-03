@@ -550,3 +550,300 @@ body {
     font-size: 32px;
   }
 }
+/* ==================================================
+   PROFESSIONAL ANIMATIONS
+   Add this at the bottom of styles.css
+================================================== */
+
+/* Smooth screen fade */
+.screen {
+  opacity: 0;
+  transform: scale(1.01);
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s ease;
+}
+
+.screen.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Home screen logo movement */
+.logo-big {
+  transition:
+    transform 1.15s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.85s ease,
+    letter-spacing 1s ease;
+}
+
+.idle-screen.idle-starting .logo-big {
+  transform: translateY(-34vh) scale(0.48);
+  letter-spacing: 1px;
+}
+
+.idle-screen.idle-starting .touch-text,
+.idle-screen.idle-starting .touch-icon {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+}
+
+/* Selection screen entrance */
+.selection-screen .top-header {
+  opacity: 0;
+  transform: translateY(-28px);
+}
+
+.selection-screen.screen-ready .top-header {
+  animation: headerDrop 0.8s ease forwards;
+}
+
+@keyframes headerDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Perfume card entrance one by one */
+.perfume-card {
+  opacity: 0;
+  transform: translateY(45px) scale(0.96);
+}
+
+.selection-screen.screen-ready .perfume-card {
+  animation: cardRise 0.78s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.selection-screen.screen-ready .perfume-card:nth-child(1) {
+  animation-delay: 0.15s;
+}
+
+.selection-screen.screen-ready .perfume-card:nth-child(2) {
+  animation-delay: 0.28s;
+}
+
+.selection-screen.screen-ready .perfume-card:nth-child(3) {
+  animation-delay: 0.41s;
+}
+
+@keyframes cardRise {
+  from {
+    opacity: 0;
+    transform: translateY(45px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Perfume card hover/touch premium feel */
+.perfume-card {
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.perfume-card:hover {
+  transform: translateY(-8px) scale(1.015);
+  box-shadow: 0 30px 65px rgba(91, 50, 20, 0.28);
+  border-color: #a91520;
+}
+
+.perfume-card:active {
+  transform: scale(0.97);
+}
+
+/* Bottle soft floating effect */
+.perfume-bottle {
+  animation: bottleFloat 4.5s ease-in-out infinite;
+}
+
+@keyframes bottleFloat {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Detail screen professional entrance */
+.detail-layout {
+  opacity: 0;
+  transform: translateY(35px);
+}
+
+.detail-screen.screen-ready .detail-layout {
+  animation: detailEnter 0.75s ease forwards;
+}
+
+@keyframes detailEnter {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.detail-bottle {
+  opacity: 0;
+  transform: scale(0.92) translateY(18px);
+}
+
+.detail-screen.screen-ready .detail-bottle {
+  animation: bottleReveal 0.85s ease forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes bottleReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Buttons luxury interaction */
+button {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+button:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 12px 25px rgba(91, 0, 0, 0.26);
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+/* QR screen entrance */
+.qr-layout {
+  opacity: 0;
+  transform: scale(0.96) translateY(25px);
+}
+
+.qr-screen.screen-ready .qr-layout {
+  animation: qrEnter 0.7s ease forwards;
+}
+
+@keyframes qrEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.qr-box {
+  animation: qrGlow 2.8s ease-in-out infinite;
+}
+
+@keyframes qrGlow {
+  0% {
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+  }
+  50% {
+    box-shadow: 0 18px 50px rgba(139, 16, 24, 0.28);
+  }
+  100% {
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+  }
+}
+
+/* Success animation */
+.success-card {
+  opacity: 0;
+  transform: scale(0.92);
+}
+
+.success-screen.screen-ready .success-card {
+  animation: successPop 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes successPop {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.success-icon {
+  transform: scale(0);
+}
+
+.success-screen.screen-ready .success-icon {
+  animation: checkPop 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 0.25s;
+}
+
+@keyframes checkPop {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Thank you screen entrance */
+.thankyou-screen h1,
+.thankyou-screen h2,
+.thankyou-screen p {
+  opacity: 0;
+  transform: translateY(25px);
+}
+
+.thankyou-screen.screen-ready h1 {
+  animation: thankFade 0.7s ease forwards;
+}
+
+.thankyou-screen.screen-ready h2 {
+  animation: thankFade 0.7s ease forwards;
+  animation-delay: 0.18s;
+}
+
+.thankyou-screen.screen-ready p {
+  animation: thankFade 0.7s ease forwards;
+  animation-delay: 0.35s;
+}
+
+@keyframes thankFade {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
