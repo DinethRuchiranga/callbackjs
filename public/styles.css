@@ -1,0 +1,571 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Georgia, "Times New Roman", serif;
+  background: #efe5d6;
+  color: #7f0f16;
+}
+
+.screen {
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  position: absolute;
+  inset: 0;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* =========================
+   SCREEN 1: IDLE
+========================= */
+
+.idle-screen {
+  background:
+    radial-gradient(circle at center, rgba(255, 220, 170, 0.12), transparent 35%),
+    radial-gradient(circle at center, #a51c24 0%, #850e16 52%, #56070b 100%);
+  color: #f7e6cf;
+}
+
+.idle-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-big {
+  font-size: 118px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 2px;
+  color: #f5e7d2;
+  text-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.touch-text {
+  margin-top: 85px;
+  font-size: 20px;
+  letter-spacing: 9px;
+}
+
+.touch-icon {
+  margin-top: 25px;
+  font-size: 45px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+}
+
+/* =========================
+   COMMON HEADER
+========================= */
+
+.top-header {
+  text-align: center;
+  padding-top: 28px;
+}
+
+.logo-small {
+  font-size: 60px;
+  font-style: italic;
+  font-weight: 400;
+  color: #8b1018;
+}
+
+.light-logo {
+  color: #fff2df;
+}
+
+.gold-line {
+  width: 310px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #b38a55, transparent);
+  margin: 10px auto;
+}
+
+.top-header h2 {
+  font-size: 42px;
+  font-weight: 400;
+  letter-spacing: 5px;
+  color: #8b1018;
+}
+
+/* =========================
+   SCREEN 2: SELECTION
+========================= */
+
+.selection-screen {
+  background:
+    radial-gradient(circle at center, #fff6e9 0%, #efe5d6 55%, #e4d4bf 100%);
+}
+
+.perfume-grid {
+  width: 92%;
+  height: 62%;
+  margin: 28px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 34px;
+}
+
+.perfume-card {
+  background: rgba(255, 249, 239, 0.78);
+  border: 3px solid #8b1018;
+  border-radius: 22px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 22px 46px rgba(91, 50, 20, 0.2);
+  transition: 0.2s ease;
+  cursor: pointer;
+  padding: 22px;
+}
+
+.perfume-card:active {
+  transform: scale(0.97);
+}
+
+.perfume-bottle {
+  height: 220px;
+  margin: 8px auto 24px;
+  border-radius: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.armani-bottle {
+  background:
+    linear-gradient(180deg, #291d19 0%, #110b09 100%);
+  border-radius: 28px;
+  box-shadow:
+    inset 0 0 0 10px rgba(255, 190, 120, 0.18),
+    0 20px 35px rgba(0, 0, 0, 0.25);
+}
+
+.dg-bottle {
+  background:
+    linear-gradient(180deg, #f3b656 0%, #9c5916 65%, #54300c 100%);
+  border-radius: 20px;
+  box-shadow:
+    inset 0 0 0 9px rgba(255, 255, 255, 0.2),
+    0 20px 35px rgba(0, 0, 0, 0.22);
+}
+
+.eros-bottle {
+  background:
+    linear-gradient(180deg, #0ea6b1 0%, #00636d 70%, #003239 100%);
+  border-radius: 24px;
+  box-shadow:
+    inset 0 0 0 10px rgba(255, 255, 255, 0.16),
+    0 20px 35px rgba(0, 0, 0, 0.23);
+}
+
+.perfume-card h3 {
+  font-size: 32px;
+  font-weight: 600;
+  color: #8b1018;
+}
+
+.perfume-card p {
+  font-size: 23px;
+  margin-top: 8px;
+  color: #8b1018;
+}
+
+.perfume-card button {
+  margin-top: 24px;
+  width: 80%;
+  height: 60px;
+  border: none;
+  border-radius: 40px;
+  background: linear-gradient(180deg, #a41620, #7d0d14);
+  color: #fff4e8;
+  font-size: 27px;
+  font-family: Georgia, "Times New Roman", serif;
+  box-shadow: 0 8px 18px rgba(91, 0, 0, 0.25);
+}
+
+.perfume-card button span {
+  float: right;
+  margin-right: 24px;
+}
+
+/* =========================
+   SCREEN 3: DETAILS
+========================= */
+
+.detail-screen {
+  background: #efe5d6;
+}
+
+.detail-layout {
+  width: 88%;
+  height: 70%;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: rgba(255, 255, 255, 0.28);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.17);
+}
+
+.detail-image-box {
+  background: linear-gradient(135deg, #68120f, #d7b174);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-bottle {
+  width: 230px;
+  height: 360px;
+}
+
+.detail-info {
+  padding: 58px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.detail-info h2 {
+  font-size: 46px;
+  color: #461010;
+}
+
+.detail-info h4 {
+  margin-top: 12px;
+  font-size: 18px;
+  letter-spacing: 5px;
+  color: #8b1018;
+}
+
+.detail-info p {
+  margin-top: 34px;
+  font-size: 22px;
+  line-height: 1.55;
+  color: #3d2923;
+}
+
+.price-box {
+  margin-top: 34px;
+  color: #8b1018;
+}
+
+.price-box span {
+  display: block;
+  font-size: 24px;
+}
+
+.price-box strong {
+  display: block;
+  font-size: 58px;
+}
+
+.price-box small {
+  font-size: 16px;
+  letter-spacing: 3px;
+}
+
+.pay-button {
+  margin-top: 32px;
+  height: 70px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #a41620, #7d0d14);
+  color: #fff4e8;
+  font-size: 30px;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.back-button {
+  margin-top: 16px;
+  width: 160px;
+  height: 45px;
+  border: none;
+  border-radius: 25px;
+  color: #8b1018;
+  background: #f4e2ca;
+  font-size: 18px;
+}
+
+/* =========================
+   SCREEN 4: QR
+========================= */
+
+.qr-screen {
+  background: #efe5d6;
+}
+
+.qr-layout {
+  width: 82%;
+  height: 65%;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.qr-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-box {
+  width: 360px;
+  height: 480px;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-title {
+  color: #e6004d;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.fake-qr {
+  width: 230px;
+  height: 230px;
+  margin: 30px 0;
+  background:
+    linear-gradient(90deg, #111 10px, transparent 10px) 0 0 / 25px 25px,
+    linear-gradient(#111 10px, transparent 10px) 0 0 / 25px 25px;
+  border: 18px solid #f03268;
+}
+
+.qr-box strong {
+  color: #8b1018;
+  font-size: 34px;
+}
+
+.qr-box small {
+  margin-top: 8px;
+  color: #333;
+}
+
+.qr-info h2 {
+  font-size: 44px;
+  color: #461010;
+}
+
+.qr-info p {
+  margin-top: 10px;
+  font-size: 18px;
+  letter-spacing: 5px;
+  color: #8b1018;
+}
+
+.qr-info ol {
+  margin-top: 45px;
+  list-style: none;
+}
+
+.qr-info li {
+  font-size: 26px;
+  margin: 22px 0;
+  color: #3d2923;
+}
+
+.qr-info li::before {
+  content: counter(list-item);
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  margin-right: 20px;
+  border-radius: 50%;
+  background: #8b1018;
+  color: white;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-note {
+  margin-top: 45px !important;
+  font-size: 18px !important;
+  letter-spacing: 2px !important;
+}
+
+/* =========================
+   SCREEN 5: SUCCESS
+========================= */
+
+.success-screen {
+  background: #efe5d6;
+}
+
+.success-screen.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-card {
+  width: 62%;
+  min-height: 70%;
+  background: rgba(255, 255, 255, 0.42);
+  border-radius: 28px;
+  text-align: center;
+  padding: 44px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.15);
+}
+
+.success-icon {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto;
+  background: #17883a;
+  color: white;
+  border-radius: 50%;
+  font-size: 60px;
+  line-height: 90px;
+}
+
+.success-card h1 {
+  margin-top: 24px;
+  font-size: 46px;
+  color: #8b1018;
+}
+
+.success-card p {
+  margin-top: 12px;
+  font-size: 20px;
+  color: #3d2923;
+}
+
+.selected-box {
+  width: 62%;
+  margin: 36px auto;
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 18px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  text-align: left;
+}
+
+.success-bottle {
+  width: 95px;
+  height: 95px;
+}
+
+.selected-box h3 {
+  font-size: 24px;
+  color: #461010;
+}
+
+.selected-box strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 26px;
+  color: #8b1018;
+}
+
+.spray-instruction {
+  width: 82%;
+  margin: 0 auto;
+  padding: 22px;
+  border-radius: 16px;
+  background: #e9d2b5;
+  color: #8b1018;
+  font-size: 30px;
+  line-height: 1.4;
+}
+
+/* =========================
+   SCREEN 6: THANK YOU
+========================= */
+
+.thankyou-screen {
+  background: linear-gradient(135deg, #d8b58e, #6c2a17);
+  color: #fff2df;
+  text-align: center;
+  padding-top: 120px;
+}
+
+.thankyou-screen h2 {
+  margin-top: 80px;
+  font-size: 56px;
+  color: #fff2df;
+}
+
+.thankyou-screen p {
+  margin-top: 80px;
+  font-size: 22px;
+}
+
+/* =========================
+   RESPONSIVE TABLET FIX
+========================= */
+
+@media (max-width: 900px) {
+  .logo-big {
+    font-size: 70px;
+  }
+
+  .logo-small {
+    font-size: 42px;
+  }
+
+  .top-header h2 {
+    font-size: 30px;
+  }
+
+  .perfume-grid {
+    gap: 14px;
+  }
+
+  .perfume-card h3 {
+    font-size: 22px;
+  }
+
+  .perfume-card p {
+    font-size: 17px;
+  }
+
+  .perfume-card button {
+    font-size: 20px;
+  }
+
+  .detail-info h2,
+  .qr-info h2 {
+    font-size: 32px;
+  }
+}
