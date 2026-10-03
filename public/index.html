@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desaint's Perfume Vending</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- SCREEN 1: IDLE / ADVERTISEMENT -->
+  <section id="idleScreen" class="screen idle-screen active">
+    <div class="idle-content">
+      <h1 class="logo-big">Desaint’s</h1>
+      <p class="touch-text">TOUCH SCREEN TO BEGIN</p>
+      <div class="touch-icon">☝</div>
+    </div>
+  </section>
+
+  <!-- SCREEN 2: PERFUME SELECTION -->
+  <section id="selectionScreen" class="screen selection-screen">
+    <header class="top-header">
+      <h1 class="logo-small">Desaint’s</h1>
+      <div class="gold-line"></div>
+      <h2>Select Your Fragrance</h2>
+    </header>
+
+    <div class="perfume-grid">
+
+      <div class="perfume-card" onclick="openDetails('armani')">
+        <div class="perfume-bottle armani-bottle"></div>
+        <h3>Armani</h3>
+        <p>Stronger With You</p>
+        <button>Select <span>›</span></button>
+      </div>
+
+      <div class="perfume-card" onclick="openDetails('dg')">
+        <div class="perfume-bottle dg-bottle"></div>
+        <h3>Dolce & Gabbana</h3>
+        <p>The One</p>
+        <button>Select <span>›</span></button>
+      </div>
+
+      <div class="perfume-card" onclick="openDetails('eros')">
+        <div class="perfume-bottle eros-bottle"></div>
+        <h3>Versace</h3>
+        <p>Eros</p>
+        <button>Select <span>›</span></button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SCREEN 3: PERFUME DETAIL -->
+  <section id="detailScreen" class="screen detail-screen">
+    <header class="top-header">
+      <h1 class="logo-small">Desaint’s</h1>
+    </header>
+
+    <div class="detail-layout">
+      <div class="detail-image-box">
+        <div id="detailBottle" class="detail-bottle armani-bottle"></div>
+      </div>
+
+      <div class="detail-info">
+        <h2 id="detailName">Stronger With You</h2>
+        <h4 id="detailBrand">GIORGIO ARMANI</h4>
+        <p id="detailDescription">
+          A warm, modern and addictive fragrance with notes of vanilla and amber.
+        </p>
+
+        <div class="price-box">
+          <span>Price</span>
+          <strong>RM 1</strong>
+          <small>TESTING MODE</small>
+        </div>
+
+        <button class="pay-button" onclick="goToPayment()">PAY NOW <span>›</span></button>
+        <button class="back-button" onclick="showScreen('selectionScreen')">‹ BACK</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 4: QR PAYMENT PREVIEW -->
+  <section id="qrScreen" class="screen qr-screen">
+    <header class="top-header">
+      <h1 class="logo-small">Desaint’s</h1>
+      <div class="gold-line"></div>
+      <h2>Scan To Pay</h2>
+    </header>
+
+    <div class="qr-layout">
+      <div class="qr-card">
+        <div class="qr-box">
+          <div class="qr-title">DuitNow QR</div>
+          <div class="fake-qr"></div>
+          <strong>RM 1.00</strong>
+          <small>Testing Payment</small>
+        </div>
+      </div>
+
+      <div class="qr-info">
+        <h2 id="qrPerfumeName">Stronger With You</h2>
+        <p id="qrPerfumeBrand">GIORGIO ARMANI</p>
+
+        <ol>
+          <li>Open your bank app</li>
+          <li>Scan the DuitNow QR</li>
+          <li>Complete the payment</li>
+        </ol>
+
+        <p class="preview-note">Preview mode: success screen will appear automatically.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 5: PAYMENT SUCCESS -->
+  <section id="successScreen" class="screen success-screen">
+    <div class="success-card">
+      <div class="success-icon">✓</div>
+      <h1>Payment Successful!</h1>
+      <p>Thank you for your purchase.</p>
+
+      <div class="selected-box">
+        <div id="successBottle" class="success-bottle armani-bottle"></div>
+        <div>
+          <h3 id="successPerfumeName">Stronger With You</h3>
+          <p id="successPerfumeBrand">GIORGIO ARMANI</p>
+          <strong>RM 1.00</strong>
+        </div>
+      </div>
+
+      <div class="spray-instruction">
+        Now place your wrist / neck<br />
+        and press the spray button.
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 6: THANK YOU -->
+  <section id="thankYouScreen" class="screen thankyou-screen">
+    <h1 class="logo-small light-logo">Desaint’s</h1>
+    <h2>Enjoy Your Fragrance<br />Thank You!</h2>
+    <p>Returning to home screen...</p>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
