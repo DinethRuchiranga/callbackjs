@@ -19,14 +19,17 @@ export default async function handler(req, res) {
     const perfumes = {
       "1": {
         name: "Armani Stronger With You",
+        shortName: "Armani",
         description: "Desaint's RM1 test payment - Armani Stronger With You"
       },
       "2": {
         name: "Dolce & Gabbana The One",
+        shortName: "D&G",
         description: "Desaint's RM1 test payment - Dolce & Gabbana The One"
       },
       "3": {
         name: "Versace Eros",
+        shortName: "Eros",
         description: "Desaint's RM1 test payment - Versace Eros"
       }
     };
@@ -40,26 +43,42 @@ export default async function handler(req, res) {
     formData.append("userSecretKey", TOYYIBPAY_SECRET);
     formData.append("categoryCode", CATEGORY_CODE);
 
-    formData.append("billName", `Desaint's ${selectedPerfume.name}`);
+    // IMPORTANT:
+    // ToyyibPay billName max length is 30 characters.
+    // Keep this short.
+    formData.append("billName", `Desaint P${perfumeId}`);
+
+    // Longer text can go in billDescription
     formData.append("billDescription", selectedPerfume.description);
 
+    // 1 = fixed price
     formData.append("billPriceSetting", "1");
+
+    // 1 worked better for your ToyyibPay checkout details
     formData.append("billPayorInfo", "1");
 
     // RM1 testing mode
-    // RM1 = 100, RM5 = 500, RM10 = 1000
+    // ToyyibPay amount is in sen:
+    // RM1 = 100
+    // RM5 = 500
+    // RM10 = 1000
     formData.append("billAmount", "100");
 
     formData.append("billReturnUrl", callbackUrl);
     formData.append("billCallbackUrl", callbackUrl);
 
+    // Store selected perfume in external reference for tracking
     formData.append("billExternalReferenceNo", `machine001_perfume_${perfumeId}`);
 
     formData.append("billTo", "Customer");
     formData.append("billEmail", "customer@test.com");
     formData.append("billPhone", "601160891507");
 
+    // Enable DuitNow QR
     formData.append("enableDuitNowQR", "1");
+
+    // 0 = bill owner pays DuitNow QR fee
+    // 1 = customer pays DuitNow QR fee
     formData.append("chargeDuitNowQR", "0");
 
     const response = await fetch("https://toyyibpay.com/index.php/api/createBill", {
