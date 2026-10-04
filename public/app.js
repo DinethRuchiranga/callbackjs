@@ -39,6 +39,12 @@ function showScreen(screenId) {
   });
 
   const nextScreen = document.getElementById(screenId);
+
+  if (!nextScreen) {
+    console.log("Screen not found:", screenId);
+    return;
+  }
+
   nextScreen.classList.add("active");
 
   setTimeout(() => {
@@ -46,7 +52,6 @@ function showScreen(screenId) {
   }, 40);
 }
 
-// Home screen to perfume selection animation
 function startExperience() {
   if (isTransitioning) return;
 
@@ -68,13 +73,16 @@ document.getElementById("idleScreen").addEventListener("touchstart", startExperi
 function openDetails(perfumeKey) {
   selectedPerfume = perfumes[perfumeKey];
 
+  localStorage.setItem("lastPerfumeName", selectedPerfume.name);
+  localStorage.setItem("lastPerfumeBrand", selectedPerfume.brand);
+  localStorage.setItem("lastPerfumeImage", selectedPerfume.image);
+
   document.getElementById("detailName").innerText = selectedPerfume.name;
   document.getElementById("detailBrand").innerText = selectedPerfume.brand;
   document.getElementById("detailDescription").innerText =
     selectedPerfume.description;
 
-  const detailBottle = document.getElementById("detailBottle");
-  detailBottle.src = selectedPerfume.image;
+  document.getElementById("detailBottle").src = selectedPerfume.image;
 
   document.getElementById("qrPerfumeName").innerText = selectedPerfume.name;
   document.getElementById("qrPerfumeBrand").innerText = selectedPerfume.brand;
@@ -83,9 +91,7 @@ function openDetails(perfumeKey) {
     selectedPerfume.name;
   document.getElementById("successPerfumeBrand").innerText =
     selectedPerfume.brand;
-
-  const successBottle = document.getElementById("successBottle");
-  successBottle.src = selectedPerfume.image;
+  document.getElementById("successBottle").src = selectedPerfume.image;
 
   showScreen("detailScreen");
 }
@@ -95,10 +101,55 @@ function goToPayment() {
 
   showScreen("qrScreen");
 
-  // REAL PAYMENT MODE
-  // Redirects to ToyyibPay through our Vercel API.
-  // For now all perfume choices trigger the same one actuator after payment.
   setTimeout(() => {
     window.location.href = `/api/pay?perfume=${selectedPerfume.id}`;
   }, 1200);
 }
+
+function loadLastPerfumeToSuccessScreen() {
+  const name = localStorage.getItem("lastPerfumeName") || "Your Fragrance";
+  const brand = localStorage.getItem("lastPerfumeBrand") || "DESAINT’S";
+  const image = localStorage.getItem("lastPerfumeImage") || "images/armani.png.webp";
+
+  document.getElementById("successPerfumeName").innerText = name;
+  document.getElementById("successPerfumeBrand").innerText = brand;
+  document.getElementById("successBottle").src = image;
+}
+
+function showAfterPaymentSuccess() {
+  loadLastPerfumeToSuccessScreen();
+
+  showScreen("successScreen");
+
+  // Customer instruction screen
+  // Place wrist / neck and press button
+  setTimeout(() => {
+    showScreen("thankYouScreen");
+  }, 7000);
+
+  // Thank you screen then return home
+  setTimeout(() => {
+    window.location.href = "/";
+  }, 12000);
+}
+
+function showPaymentFailed() {
+  showScreen("failedScreen");
+
+  setTimeout(() => {
+    window.location.href = "/";
+  }, 5000);
+}
+
+// Check URL after ToyyibPay redirects back
+window.addEventListener("load", () => {
+  const params = new URLSearchParams(window.location.search);
+
+  if (params.get("success") === "true") {
+    showAfterPaymentSuccess();
+  }
+
+  if (params.get("failed") === "true") {
+    showPaymentFailed();
+  }
+});
