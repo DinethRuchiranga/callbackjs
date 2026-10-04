@@ -93,7 +93,6 @@ function openDetails(perfumeKey) {
 function goToPayment() {
   if (!selectedPerfume) return;
 
-  // Show our Desaint's QR loading screen briefly
   showScreen("qrScreen");
 
   // REAL PAYMENT MODE
