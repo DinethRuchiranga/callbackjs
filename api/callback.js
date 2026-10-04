@@ -1,98 +1,129 @@
+import crypto from "crypto";
+
 export default async function handler(req, res) {
   try {
+    const TOYYIBPAY_SECRET = process.env.TOYYIBPAY_SECRET;
+    const FIREBASE_SECRET = process.env.FIREBASE_SECRET;
+
+    const BASE_URL =
+      "https://vending-prefume-default-rtdb.asia-southeast1.firebasedatabase.app";
+
+    if (!TOYYIBPAY_SECRET || !FIREBASE_SECRET) {
+      return res.status(500).send(`
+        <h1>Missing Environment Variables</h1>
+        <p>Please add TOYYIBPAY_SECRET and FIREBASE_SECRET in Vercel.</p>
+      `);
+    }
+
     const data = {
       method: req.method,
       body: req.body || {},
       query: req.query || {},
-      time: new Date().toISOString(),
+      time: new Date().toISOString()
     };
 
-    const FIREBASE_SECRET = "ymyViyzvSwmuW97BMmYuuDmAtN1oPq6igEoutu2S";
-    const BASE_URL =
-      "https://vending-prefume-default-rtdb.asia-southeast1.firebasedatabase.app";
+    const status =
+      req.body?.status ||
+      req.body?.status_id ||
+      req.query?.status ||
+      req.query?.status_id ||
+      "";
 
-    // Save callback debug data
+    const refno = req.body?.refno || req.query?.refno || "";
+    const order_id = req.body?.order_id || req.query?.order_id || "";
+    const receivedHash = req.body?.hash || req.query?.hash || "";
+
+    const isSuccess = String(status) === "1";
+
+    // Save debug data
     await fetch(`${BASE_URL}/debug/lastCallback.json?auth=${FIREBASE_SECRET}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(data)
     });
 
-    // Unlock machine
-    await fetch(`${BASE_URL}/machine001/paid.json?auth=${FIREBASE_SECRET}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(true),
-    });
+    // If payment failed, cancelled, or pending
+    if (!isSuccess) {
+      await fetch(`${BASE_URL}/machine001/paid.json?auth=${FIREBASE_SECRET}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(false)
+      });
 
-    // Show customer-friendly success page instead of JSON
-    res.setHeader("Content-Type", "text/html");
+      await fetch(`${BASE_URL}/machine001/paymentStatus.json?auth=${FIREBASE_SECRET}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify("failed_or_cancelled")
+      });
 
-    return res.status(200).send(`
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="refresh" content="8;url=/api/pay">
-        <title>Payment Successful</title>
-        <style>
-          body {
-            font-family: Arial, sans-serif;
-            background: #111827;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-          }
-          .card {
-            background: #1f2937;
-            padding: 40px;
-            border-radius: 20px;
-            max-width: 420px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-          }
-          .success {
-            font-size: 60px;
-            margin-bottom: 20px;
-          }
-          h1 {
-            color: #22c55e;
-            margin-bottom: 10px;
-          }
-          p {
-            font-size: 18px;
-            color: #d1d5db;
-          }
-          .small {
-            margin-top: 25px;
-            font-size: 14px;
-            color: #9ca3af;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="card">
-          <div class="success">✅</div>
-          <h1>Payment Successful</h1>
-          <p>Machine unlocked.</p>
-          <p>Please select your perfume now.</p>
-          <div class="small">Screen will refresh for the next customer...</div>
-        </div>
-      </body>
-      </html>
-    `);
+      return res.redirect(302, "/?failed=true");
+    }
+
+    // Only POST callback should unlock the machine
+    if (req.method === "POST" && isSuccess) {
+      let hashValid = true;
+
+      if (receivedHash) {
+        const expectedHash = crypto
+          .createHash("md5")
+          .update(TOYYIBPAY_SECRET + status + order_id + refno + "ok")
+          .digest("hex");
+
+        hashValid = receivedHash === expectedHash;
+      }
+
+      if (!hashValid) {
+        await fetch(`${BASE_URL}/machine001/paid.json?auth=${FIREBASE_SECRET}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(false)
+        });
+
+        await fetch(`${BASE_URL}/machine001/paymentStatus.json?auth=${FIREBASE_SECRET}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify("hash_failed")
+        });
+
+        return res.redirect(302, "/?failed=true");
+      }
+
+      // SUCCESS: unlock machine
+      await fetch(`${BASE_URL}/machine001/paid.json?auth=${FIREBASE_SECRET}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(true)
+      });
+
+      await fetch(`${BASE_URL}/machine001/paymentStatus.json?auth=${FIREBASE_SECRET}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify("success")
+      });
+
+      return res.redirect(302, "/?success=true");
+    }
+
+    // Browser return success page
+    // This shows luxury success screen, but machine unlock happens only from POST callback
+    return res.redirect(302, "/?success=true");
   } catch (error) {
-    res.setHeader("Content-Type", "text/html");
-
     return res.status(500).send(`
-      <h1>Payment Error</h1>
+      <h1>Callback Error</h1>
       <p>${error.message}</p>
     `);
   }
