@@ -41,13 +41,12 @@ function showScreen(screenId) {
   const nextScreen = document.getElementById(screenId);
   nextScreen.classList.add("active");
 
-  // Small delay allows CSS entrance animations to trigger cleanly
   setTimeout(() => {
     nextScreen.classList.add("screen-ready");
   }, 40);
 }
 
-// Special premium transition from home screen to selection screen
+// Home screen to perfume selection animation
 function startExperience() {
   if (isTransitioning) return;
 
@@ -56,7 +55,6 @@ function startExperience() {
   const idleScreen = document.getElementById("idleScreen");
   idleScreen.classList.add("idle-starting");
 
-  // This delay allows the Desaint's logo to move upward smoothly first
   setTimeout(() => {
     showScreen("selectionScreen");
     idleScreen.classList.remove("idle-starting");
@@ -95,21 +93,13 @@ function openDetails(perfumeKey) {
 function goToPayment() {
   if (!selectedPerfume) return;
 
+  // Show our Desaint's QR loading screen briefly
   showScreen("qrScreen");
 
-  // PREVIEW MODE ONLY
-  // Later we replace this with real ToyyibPay redirect:
-  // window.location.href = `/api/pay?perfume=${selectedPerfume.id}`;
-
+  // REAL PAYMENT MODE
+  // Redirects to ToyyibPay through our Vercel API.
+  // For now all perfume choices trigger the same one actuator after payment.
   setTimeout(() => {
-    showScreen("successScreen");
-
-    setTimeout(() => {
-      showScreen("thankYouScreen");
-
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 5000);
-    }, 8000);
-  }, 6000);
+    window.location.href = `/api/pay?perfume=${selectedPerfume.id}`;
+  }, 1200);
 }
