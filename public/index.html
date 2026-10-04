@@ -119,11 +119,13 @@
   <section id="successScreen" class="screen success-screen">
     <div class="success-card">
       <div class="success-icon">✓</div>
-      <h1>Payment Successful!</h1>
-      <p>Thank you for your purchase.</p>
+
+      <h1>Payment Successful</h1>
+      <p class="success-subtitle">Your fragrance is ready.</p>
 
       <div class="selected-box">
         <img id="successBottle" class="success-bottle" src="images/armani.png.webp" alt="Selected perfume">
+
         <div>
           <h3 id="successPerfumeName">Stronger With You</h3>
           <p id="successPerfumeBrand">GIORGIO ARMANI</p>
@@ -132,17 +134,43 @@
       </div>
 
       <div class="spray-instruction">
-        Now place your wrist / neck<br />
-        and press the spray button.
+        <span>STEP 1</span>
+        Place your wrist / neck<br />
+        near the spray point
+      </div>
+
+      <div class="spray-instruction second">
+        <span>STEP 2</span>
+        Press the spray button
       </div>
     </div>
   </section>
 
   <!-- SCREEN 6: THANK YOU -->
   <section id="thankYouScreen" class="screen thankyou-screen">
-    <h1 class="logo-small light-logo">Desaint’s</h1>
-    <h2>Enjoy Your Fragrance<br />Thank You!</h2>
-    <p>Returning to home screen...</p>
+    <div class="thankyou-content">
+      <h1 class="logo-small light-logo">Desaint’s</h1>
+      <div class="thank-gold-line"></div>
+
+      <h2>Enjoy Your Fragrance</h2>
+      <h3>Thank You!</h3>
+
+      <p>Returning to home screen...</p>
+    </div>
+  </section>
+
+  <!-- SCREEN 7: PAYMENT FAILED / CANCELLED -->
+  <section id="failedScreen" class="screen failed-screen">
+    <div class="failed-card">
+      <div class="failed-icon">×</div>
+
+      <h1>Payment Cancelled</h1>
+      <p>Your transaction was not completed.</p>
+
+      <h3>Machine is still locked.</h3>
+
+      <span>Returning to home screen...</span>
+    </div>
   </section>
 
   <script src="app.js"></script>
