@@ -166,6 +166,7 @@ body {
     opacity: 0;
     transform: translateY(-28px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -219,6 +220,7 @@ body {
     opacity: 0;
     transform: translateY(45px) scale(0.96);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -249,9 +251,11 @@ body {
   0% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-7px);
   }
+
   100% {
     transform: translateY(0);
   }
@@ -318,6 +322,7 @@ body {
     opacity: 0;
     transform: translateY(35px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -350,6 +355,7 @@ body {
     opacity: 0;
     transform: scale(0.92) translateY(18px);
   }
+
   to {
     opacity: 1;
     transform: scale(1) translateY(0);
@@ -477,6 +483,7 @@ button:active {
     opacity: 0;
     transform: translateY(35px) scale(0.96);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -501,10 +508,12 @@ button:active {
     transform: scale(1);
     box-shadow: 0 18px 35px rgba(139, 16, 24, 0.28);
   }
+
   50% {
     transform: scale(1.06);
     box-shadow: 0 22px 48px rgba(139, 16, 24, 0.42);
   }
+
   100% {
     transform: scale(1);
     box-shadow: 0 18px 35px rgba(139, 16, 24, 0.28);
@@ -585,10 +594,13 @@ button:active {
 }
 
 @keyframes dotBounce {
-  0%, 80%, 100% {
+  0%,
+  80%,
+  100% {
     transform: scale(0.65);
     opacity: 0.55;
   }
+
   40% {
     transform: scale(1.1);
     opacity: 1;
@@ -607,7 +619,8 @@ button:active {
 ========================= */
 
 .success-screen {
-  background: #efe5d6;
+  background:
+    radial-gradient(circle at center, #fff6e9 0%, #efe5d6 55%, #e4d4bf 100%);
 }
 
 .success-screen.active {
@@ -617,13 +630,17 @@ button:active {
 }
 
 .success-card {
-  width: 62%;
-  min-height: 70%;
-  background: rgba(255, 255, 255, 0.42);
-  border-radius: 28px;
+  width: 720px;
+  max-width: 90vw;
+  min-height: 720px;
+  background: rgba(255, 249, 239, 0.88);
+  border: 2px solid rgba(139, 16, 24, 0.24);
+  border-radius: 32px;
   text-align: center;
-  padding: 44px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.15);
+  padding: 44px 48px;
+  box-shadow:
+    0 35px 90px rgba(80, 35, 15, 0.25),
+    inset 0 0 45px rgba(255, 255, 255, 0.35);
   opacity: 0;
   transform: scale(0.92);
 }
@@ -637,6 +654,7 @@ button:active {
     opacity: 0;
     transform: scale(0.92);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -644,14 +662,15 @@ button:active {
 }
 
 .success-icon {
-  width: 90px;
-  height: 90px;
+  width: 94px;
+  height: 94px;
   margin: 0 auto;
-  background: #17883a;
+  background: linear-gradient(180deg, #1fa34a, #157a35);
   color: white;
   border-radius: 50%;
-  font-size: 60px;
-  line-height: 90px;
+  font-size: 62px;
+  line-height: 94px;
+  box-shadow: 0 18px 38px rgba(21, 122, 53, 0.35);
   transform: scale(0);
 }
 
@@ -664,6 +683,7 @@ button:active {
   from {
     transform: scale(0);
   }
+
   to {
     transform: scale(1);
   }
@@ -671,56 +691,83 @@ button:active {
 
 .success-card h1 {
   margin-top: 24px;
-  font-size: 46px;
+  font-size: 48px;
   color: #8b1018;
+  font-weight: 500;
 }
 
-.success-card p {
-  margin-top: 12px;
-  font-size: 20px;
-  color: #3d2923;
+.success-subtitle {
+  margin-top: 10px;
+  font-size: 22px;
+  color: #4d332c;
 }
 
 .selected-box {
-  width: 62%;
-  margin: 36px auto;
-  background: rgba(255, 255, 255, 0.65);
-  border-radius: 18px;
+  width: 72%;
+  margin: 30px auto;
+  background: rgba(255, 255, 255, 0.62);
+  border-radius: 22px;
   padding: 20px;
   display: flex;
   align-items: center;
   gap: 25px;
   text-align: left;
+  box-shadow: 0 14px 35px rgba(80, 35, 15, 0.12);
 }
 
 .success-bottle {
-  width: 95px;
-  height: 95px;
+  width: 105px;
+  height: 105px;
   object-fit: contain;
   filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.25));
 }
 
 .selected-box h3 {
-  font-size: 24px;
+  font-size: 26px;
   color: #461010;
+}
+
+.selected-box p {
+  margin-top: 4px;
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: #8b1018;
 }
 
 .selected-box strong {
   display: block;
   margin-top: 8px;
-  font-size: 26px;
+  font-size: 28px;
   color: #8b1018;
 }
 
 .spray-instruction {
-  width: 82%;
-  margin: 0 auto;
-  padding: 22px;
-  border-radius: 16px;
-  background: #e9d2b5;
-  color: #8b1018;
+  width: 84%;
+  margin: 20px auto 0;
+  padding: 23px 20px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #f2dfc3, #e5c79d);
+  color: #5b1414;
   font-size: 30px;
-  line-height: 1.4;
+  line-height: 1.35;
+  box-shadow: 0 14px 30px rgba(80, 35, 15, 0.12);
+}
+
+.spray-instruction span {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  letter-spacing: 5px;
+  color: #8b1018;
+}
+
+.spray-instruction.second {
+  background: linear-gradient(180deg, #a41620, #7d0d14);
+  color: #fff4e8;
+}
+
+.spray-instruction.second span {
+  color: #f6d4a7;
 }
 
 /* =========================
@@ -728,14 +775,29 @@ button:active {
 ========================= */
 
 .thankyou-screen {
-  background: linear-gradient(135deg, #d8b58e, #6c2a17);
+  background:
+    radial-gradient(circle at center, rgba(255, 224, 179, 0.2), transparent 34%),
+    linear-gradient(135deg, #d8b58e 0%, #8b1018 48%, #4a070b 100%);
   color: #fff2df;
   text-align: center;
-  padding-top: 120px;
+}
+
+.thankyou-content {
+  width: 100%;
+  height: 100%;
+  padding-top: 110px;
+}
+
+.thank-gold-line {
+  width: 340px;
+  height: 1px;
+  margin: 16px auto 0;
+  background: linear-gradient(90deg, transparent, #f3d59f, transparent);
 }
 
 .thankyou-screen h1,
 .thankyou-screen h2,
+.thankyou-screen h3,
 .thankyou-screen p {
   opacity: 0;
   transform: translateY(25px);
@@ -750,9 +812,14 @@ button:active {
   animation-delay: 0.18s;
 }
 
-.thankyou-screen.screen-ready p {
+.thankyou-screen.screen-ready h3 {
   animation: thankFade 0.7s ease forwards;
   animation-delay: 0.35s;
+}
+
+.thankyou-screen.screen-ready p {
+  animation: thankFade 0.7s ease forwards;
+  animation-delay: 0.52s;
 }
 
 @keyframes thankFade {
@@ -760,6 +827,7 @@ button:active {
     opacity: 0;
     transform: translateY(25px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -767,14 +835,105 @@ button:active {
 }
 
 .thankyou-screen h2 {
-  margin-top: 80px;
-  font-size: 56px;
+  margin-top: 95px;
+  font-size: 60px;
+  font-weight: 400;
   color: #fff2df;
 }
 
+.thankyou-screen h3 {
+  margin-top: 22px;
+  font-size: 54px;
+  font-weight: 400;
+  color: #f3d59f;
+}
+
 .thankyou-screen p {
-  margin-top: 80px;
+  margin-top: 85px;
   font-size: 22px;
+  letter-spacing: 3px;
+  color: #f8e2c3;
+}
+
+/* =========================
+   SCREEN 7: FAILED PAYMENT
+========================= */
+
+.failed-screen {
+  background:
+    radial-gradient(circle at center, #fff6e9 0%, #efe5d6 55%, #e4d4bf 100%);
+}
+
+.failed-screen.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.failed-card {
+  width: 620px;
+  max-width: 88vw;
+  padding: 55px 45px;
+  border-radius: 30px;
+  background: rgba(255, 249, 239, 0.88);
+  text-align: center;
+  border: 2px solid rgba(139, 16, 24, 0.25);
+  box-shadow: 0 35px 80px rgba(80, 35, 15, 0.22);
+  opacity: 0;
+  transform: scale(0.92);
+}
+
+.failed-screen.screen-ready .failed-card {
+  animation: failedPop 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes failedPop {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.failed-icon {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #a41620, #7d0d14);
+  color: #fff4e8;
+  font-size: 68px;
+  line-height: 80px;
+  box-shadow: 0 18px 35px rgba(139, 16, 24, 0.28);
+}
+
+.failed-card h1 {
+  font-size: 44px;
+  color: #8b1018;
+}
+
+.failed-card p {
+  margin-top: 16px;
+  font-size: 22px;
+  color: #3d2923;
+}
+
+.failed-card h3 {
+  margin-top: 26px;
+  font-size: 30px;
+  color: #5b1414;
+}
+
+.failed-card span {
+  display: block;
+  margin-top: 28px;
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: #6c3a2f;
 }
 
 /* =========================
@@ -823,5 +982,31 @@ button:active {
     margin-top: 30px;
     min-height: 560px;
     padding: 35px 28px;
+  }
+
+  .success-card {
+    min-height: 650px;
+    padding: 32px 28px;
+  }
+
+  .success-card h1 {
+    font-size: 36px;
+  }
+
+  .selected-box {
+    width: 88%;
+  }
+
+  .spray-instruction {
+    width: 90%;
+    font-size: 24px;
+  }
+
+  .thankyou-screen h2 {
+    font-size: 44px;
+  }
+
+  .thankyou-screen h3 {
+    font-size: 40px;
   }
 }
